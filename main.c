@@ -30,6 +30,23 @@ void carregaPlateia(char nomeArq[], char plateia[][NC]){
  if((fp=fopen(nomeArq,"w+"))==NULL)
  encerra("Falha na criacao do arquivo de plateia!");
  /* Grava NF linhas com NC poltronas livres em cada linha. */
+void salvaPlateia(char nomeArq[], char plateia[][NC]) {
+    int i, j;
+    FILE *fp = NULL;
+    fp = fopen(nomeArq, "w");
+
+    if (fp == NULL) {
+    encerra("Falha na abertura do arquivo de plateia!");
+    }
+    for (i = 0; i < NF; i++) {
+        for (j = 0; j < NC; j++) {
+            fprintf(fp, "%c", plateia[i][j]);
+        }
+        fprintf(fp, "\n");
+    }
+    fclose(fp);
+}
+
  iniPlateia(fp);
  /* Fecha o arquivo antes de reabri-lo para leitura. */
  fclose(fp);
@@ -46,8 +63,7 @@ void carregaPlateia(char nomeArq[], char plateia[][NC]){
  }
  fclose(fp);
 }
-
 int main(void) {
     char plateia[NF][NC];
-
+    carregaPlateia("plateia.txt", plateia);
 }
